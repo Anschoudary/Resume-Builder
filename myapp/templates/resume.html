@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume-Builder</title>
+</head>
+<body>
+    <div class="main">
+        <h1>Your Resume</h1>
+        <div class="secondary">
+            <form action="{% url 'build_resume' %}" method="post">
+                {% csrf_token %}
+                <div class="personal">
+                    <h3>Personal Info</h3>
+                    Name:* <input type="text" name="name" id="" value="{{ data.name|default:'' }}">
+                    Email:* <input type="email" name="email" id="" value="{{ data.email|default:'' }}">
+                    Phone:* <input type="number" name="phone" id="" value="{{ data.phone|default:'' }}">
+                    Profile link: <input type="link" name="profile" id="" value="{{ data.profile|default:'' }}">
+                    About: <textarea name="about" id="">{{ data.about|default:'' }}</textarea>
+                    {% if error1 %}
+                        <p style="color: red;">{{ error1 }}</p>
+                    {% endif %}
+                </div>
+                <div class="educational">
+                    <h3>Educational Info</h3>
+                    Degree:* <input type="text" name="degree" id="" value="{{ data.degree|default:'' }}">
+                    College:* <input type="text" name="college" id="" value="{{ data.college|default:'' }}">
+                    Year:* <input type="number" name="degree_year" id="" value="{{ data.degree_year|default:'' }}">
+                    <button class="edu-btn"> Add more </button>
+                    {% if error2 %}
+                        <p style="color: red;">{{ error2 }}</p>
+                    {% endif %}
+                </div>
+                <div class="experience">
+                    <h3>Experience Info</h3>
+                    Organization:* <input type="text" name="company" id="" value="{{ data.organization|default:'' }}">
+                    Designation:* <input type="text" name="designation" id="" value="{{ data.designation|default:'' }}">
+                    Year:* <input type="number" name="exp_year" id="" value="{{ data.exp_year|default:'' }}">
+                    <button> Add more </button>
+                    {% if error3 %}
+                        <p style="color: red;">{{ error3 }}</p>
+                    {% endif %}
+                </div>
+                <div class="projects">
+                    <h3>Projects Info</h3>
+                    Project:* <input type="text" name="project" id="" value="{{ data.project|default:'' }}">
+                    Description: <input type="text" name="desc" id="" value="{{ data.desc|default:'' }}">
+                    <button> Add more </button>
+                    {% if error4 %}
+                        <p style="color: red;">{{ error4 }}</p>
+                    {% endif %}
+                </div>
+                <div class="skills">
+                    <h3>Skills</h3>
+                    Skill:* <input type="text" name="skill" id="" value="{{ data.skill|default:'' }}">
+                    <button> Add more </button>
+                    {% if error5 %}
+                        <p style="color: red;">{{ error5 }}</p>
+                    {% endif %}
+                </div>
+                <div class="tools">
+                    <h3>Tools</h3>
+                    Tool: <input type="text" name="tool" id="" value="{{ data.tool|default:'' }}">
+                    <button> Add more </button>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../static/add.js"></script>
+</body>
+</html>

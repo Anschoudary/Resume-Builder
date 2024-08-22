@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style3.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="navbar">
+        <div class="title">
+            <a href="{% url 'home' %}"><h1>Resume Builder</h1></a>
+        </div>
+        <div class="account">
+            <a href="{% url 'login' %}"><h3>Sign Up</h3></a>
+            <a href="{% url 'login' %}"><h3>Login</h3></a>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <a href="{% url 'build_resume' %}"><button>Build Your Resume</button></a>
+        <a href="{% url 'demo_templates' %}"><button>Demo Templates</button></a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/demo.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>
+        Demo Templates
+    </h1>
+    <a href="{% url 'logout' %}"><button>Logout</button></a>
+    <div class="templates">
+        <div class="template1">
+            {% csrf_token %}
+            {% if data %}
+                <div class="personal">
+                    <div class="name">
+                        {{ data.name }}
+                    </div>
+                    <div class="contacts">
+                        <div class="phone">
+                            <a href="tel:{{ data.phone }}"> {{ data.phone }} </a>
+                        </div>
+                        •
+                        <div class="email">
+                            <a href="mailto:{{ data.email }}"> {{ data.email }} </a> 
+                        </div>
+                        <div class="profile">
+                            {{ data.profile }}
+                        </div>
+                    </div>
+                </div>
+                <div class="intro">
+                    <h2> Introduction</h2>
+                    <hr>
+                    <div class="about" id="content">
+                        {{ data.about }}
+                    </div>
+                </div>
+                <div class="qualification">
+                    <h2> Qualification</h2>
+                    <hr>
+                    <div class="college" id="content">
+                        <strong>{{ data.college }}</strong>
+                    </div>
+                    <div class="degree_data" id="content">
+                        <div class="degree">
+                            {{ data.degree }}
+                        </div>
+                        <div class="degree_year">
+                            {{ data.degree_year }}
+                        </div>
+                    </div>
+                </div>
+                <div class="projects">
+                    <h2> Projects</h2>
+                    <hr> 
+                    <div class="project" id="content">
+                        <strong>{{ data.project }}: </strong>
+                    </div>
+                    <div class="desc" id="content">
+                        {{ data.desc }}
+                    </div>
+                </div>
+                <div class="prof-train">
+                    <h2>  Professional Trainings and Workshops</h2>
+                    <hr>
+                    <div class="experience" id="content">
+                        <div class="designation">
+                            <strong>{{ data.designation }}</strong>
+                        </div>
+                        <div class="exp-details">
+                            <div class="organization">
+                                {{ data.organization }}
+                            </div>
+                            <div class="exp_year">
+                                {{ data.exp_year }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-tools">
+                    <h2> Skills and Tools</h2>
+                    <hr>
+                    <div class="skill" id="content">
+                        {{ data.skill }}
+                    </div>
+                    <div class="tool" id="content">
+                        {{ data.tool }}
+                    </div>
+                </div>
+            {% else %}
+                <p> No data found </p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
