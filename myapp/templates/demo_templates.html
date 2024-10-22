@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/demo.css">
+    <title>Resume Templates</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Choose Your Resume Template</h1>
+        <div class="template-list">
+            <!-- Template 1 -->
+            <div class="template-card" onclick="showModal('../static/templates/RB1.png')">
+                <div class="image-container">
+                    <img src="../static/templates/RB1.png" alt="Template 1 Preview">
+                </div>
+                <div class="template-info">
+                </div>
+                <div class="button-container">
+                    <a href="{% url 'download_template' 'Resume.pdf' %}" class="download-btn">Download PDF</a>
+                    <a href="{% url 'download_template' 'Resume.pdf' %}" class="download-btn">Download Word</a>
+                </div>
+            </div>
+
+            <!-- Template 2 -->
+            <div class="template-card" onclick="showModal('../static/templates/RB2.png')">
+                <div class="image-container">
+                    <img src="../static/templates/RB2.png" alt="Template 2 Preview">
+                </div>
+                <div class="template-info">
+                </div>
+                <div class="button-container">
+                    <a href="{% url 'download_template' 'Resume.pdf' %}" class="download-btn">Download PDF</a>
+                    <a href="{% url 'download_template' 'Resume.pdf' %}" class="download-btn">Download Word</a>
+                </div>
+            </div>
+
+            <!-- Template 3 -->
+            <div class="template-card" onclick="showModal('../static/templates/RB3.png')">
+                <div class="image-container">
+                    <img src="../static/templates/RB3.png" alt="Template 3 Preview">
+                </div>
+                <div class="template-info">
+                </div>
+                <div class="button-container">
+                    <a href="{% url 'download_template' 'Resume.pdf' %}" class="download-btn">Download PDF</a>
+                    <a href="{% url 'download_template' 'Resume.pdf' %}" class="download-btn">Download Word</a>
+                </div>
+            </div>
+            <!-- Template 4 -->
+            <div class="template-card" onclick="showModal('../static/templates/RB1.png')">
+                <div class="image-container">
+                    <img src="../static/templates/RB1.png" alt="Template 1 Preview">
+                </div>
+                <div class="template-info">
+                </div>
+                <div class="button-container">
+                    <a href="{% url 'download_template' 'Resume.pdf' %}" class="download-btn">Download PDF</a>
+                    <a href="{% url 'download_template' 'Resume.pdf' %}" class="download-btn">Download Word</a>
+                </div>
+            </div>
+
+            <!-- Template 5 -->
+            <div class="template-card" onclick="showModal('../static/templates/RB2.png')">
+                <div class="image-container">
+                    <img src="../static/templates/RB2.png" alt="Template 2 Preview">
+                </div>
+                <div class="template-info">
+                </div>
+                <div class="button-container">
+                    <a href="{% url 'download_template' 'Resume.pdf' %}" class="download-btn">Download PDF</a>
+                    <a href="{% url 'download_template' 'Resume.pdf' %}" class="download-btn">Download Word</a>
+                </div>
+            </div>
+
+            <!-- Template 6 -->
+            <div class="template-card" onclick="showModal('../static/templates/RB3.png')">
+                <div class="image-container">
+                    <img src="../static/templates/RB3.png" alt="Template 3 Preview">
+                </div>
+                <div class="template-info">
+                </div>
+                <div class="button-container">
+                    <a href="{% url 'download_template' 'Resume.pdf' %}" class="download-btn">Download PDF</a>
+                    <a href="{% url 'download_template' 'template3.docx' %}" class="download-btn">Download Word</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- Modal Structure -->
+     <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="edit-button-container">
+            <a id="editButton" href="{% url 'build_resume' %}" class="edit-btn">Edit Resume</a>
+        </div>
+    </div>
+
+    <script>
+        function showModal(imageSrc, templateName) {
+            var modal = document.getElementById("imageModal");
+            var modalImage = document.getElementById("modalImage");
+            var editButton = document.getElementById("editButton");
+
+            modal.style.display = "block";
+            modalImage.src = imageSrc;
+            editButton.href = "{% url 'build_resume' %}"; // Redirect to resume creation form with the selected template
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("imageModal");
+            modal.style.display = "none";
+        }
+
+        // Close modal when clicking outside the image
+        window.onclick = function(event) {
+            var modal = document.getElementById("imageModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

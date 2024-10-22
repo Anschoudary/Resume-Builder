@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/resume.css">
+    <title>Resume Builder</title>
+</head>
+<body>
+    <div class="main">
+        <h1>Your Resume</h1>
+        <div class="secondary">
+            <form method="POST">
+                {% csrf_token %}
+            
+                <!-- Basic Information -->
+                <label for="name">Name:</label>
+                <input type="text" name="name" value="{{ data.name }}" required><br>
+            
+                <label for="email">Email:</label>
+                <input type="email" name="email" value="{{ data.email }}" required><br>
+            
+                <label for="phone">Phone:</label>
+                <input type="text" name="phone" value="{{ data.phone }}" required><br>
+            
+                <label for="profile">Profile:</label>
+                <textarea name="profile">{{ data.profile }}</textarea><br>
+            
+                <label for="about">About:</label>
+                <textarea name="about">{{ data.about }}</textarea><br>
+            
+                <!-- Dynamic Education Section -->
+                <h3>Education</h3>
+                <div id="education-section">
+                    {% if data.educations %}
+                        {% for edu in data.educations %}
+                            <div class="education-entry">
+                                <label for="degree">Degree:</label>
+                                <input type="text" name="degree[]" value="{{ edu.degree }}" required><br>
+            
+                                <label for="college">College:</label>
+                                <input type="text" name="college[]" value="{{ edu.college }}" required><br>
+            
+                                <label for="degree_year">Year:</label>
+                                <input type="text" name="degree_year[]" value="{{ edu.degree_year }}" required><br>
+                                
+                                <button type="button" class="remove-education">Remove</button><br>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <button type="button" id="add-education">Add Education</button>
+            
+                <!-- Dynamic Experience Section -->
+                <h3>Experience</h3>
+                <div id="experience-section">
+                    {% if data.experiences %}
+                        {% for exp in data.experiences %}
+                            <div class="experience-entry">
+                                <label for="organization">Organization:</label>
+                                <input type="text" name="company[]" value="{{ exp.organization }}" required><br>
+            
+                                <label for="designation">Designation:</label>
+                                <input type="text" name="designation[]" value="{{ exp.designation }}" required><br>
+            
+                                <label for="exp_year">Years:</label>
+                                <input type="text" name="exp_year[]" value="{{ exp.exp_year }}" required><br>
+            
+                                <button type="button" class="remove-experience">Remove</button><br>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <button type="button" id="add-experience">Add Experience</button>
+            
+                <!-- Dynamic Project Section -->
+                <h3>Projects</h3>
+                <div id="project-section">
+                    {% if data.projects %}
+                        {% for project in data.projects %}
+                            <div class="project-entry">
+                                <label for="project">Project Name:</label>
+                                <input type="text" name="project[]" value="{{ project.project_name }}" required><br>
+            
+                                <label for="desc">Description:</label>
+                                <textarea name="desc[]" required>{{ project.description }}</textarea><br>
+            
+                                <button type="button" class="remove-project">Remove</button><br>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <button type="button" id="add-project">Add Project</button>
+            
+                <!-- Skills Section -->
+                <h3>Skills</h3>
+                <div id="skills-section">
+                    {% if data.skills %}
+                        {% for skill in data.skills %}
+                            <div class="skill-entry">
+                                <input type="text" name="skill[]" value="{{ skill.skill_name }}" required>
+                                <button type="button" class="remove-skill">Remove</button><br>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <button type="button" id="add-skill">Add Skill</button>
+
+                <!-- Tools Section -->
+                <h3>Tools</h3>
+                <div id="tools-section">
+                    {% if data.tools %}
+                        {% for tool in data.tools %}
+                            <div class="tool-entry">
+                                <input type="text" name="tool[]" value="{{ tool.tool_name }}" required>
+                                <button type="button" class="remove-tool">Remove</button><br>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <button type="button" id="add-tool">Add Tool</button>
+                
+                <br> <br>   
+                <hr>
+                <button type="submit">Save Resume</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- JavaScript for Dynamic Sections -->
+    <script>
+        // Add new education entry
+        document.getElementById('add-education').addEventListener('click', function() {
+            const section = document.getElementById('education-section');
+            const div = document.createElement('div');
+            div.classList.add('education-entry');
+            div.innerHTML = `
+                <label for="degree">Degree:</label>
+                <input type="text" name="degree[]" required><br>
+
+                <label for="college">College:</label>
+                <input type="text" name="college[]" required><br>
+
+                <label for="degree_year">Year:</label>
+                <input type="text" name="degree_year[]" required><br>
+                
+                <button type="button" class="remove-education">Remove</button><br>
+            `;
+            section.appendChild(div);
+            attachRemoveEducation();
+        });
+
+        function attachRemoveEducation() {
+            document.querySelectorAll('.remove-education').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.parentElement.remove();
+                });
+            });
+        }
+        attachRemoveEducation(); 
+    
+        // Add new experience entry
+        document.getElementById('add-experience').addEventListener('click', function() {
+            const section = document.getElementById('experience-section');
+            const div = document.createElement('div');
+            div.classList.add('experience-entry');
+            div.innerHTML = `
+                <label for="organization">Organization:</label>
+                <input type="text" name="company[]" required><br>
+
+                <label for="designation">Designation:</label>
+                <input type="text" name="designation[]" required><br>
+
+                <label for="exp_year">Years:</label>
+                <input type="text" name="exp_year[]" required><br>
+                
+                <button type="button" class="remove-experience">Remove</button><br>
+            `;
+            section.appendChild(div);
+            attachRemoveExperience();
+        });
+    
+        function attachRemoveExperience() {
+            document.querySelectorAll('.remove-experience').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.parentElement.remove();
+                });
+            });
+        }
+        attachRemoveExperience(); 
+    
+        // Add new project entry
+        document.getElementById('add-project').addEventListener('click', function() {
+            const section = document.getElementById('project-section');
+            const div = document.createElement('div');
+            div.classList.add('project-entry');
+            div.innerHTML = `
+                <label for="project">Project Name:</label>
+                <input type="text" name="project[]" required><br>
+
+                <label for="desc">Description:</label>
+                <textarea name="desc[]" required></textarea><br>
+                
+                <button type="button" class="remove-project">Remove</button><br>
+            `;
+            section.appendChild(div);
+            attachRemoveProject();
+        });
+    
+        function attachRemoveProject() {
+            document.querySelectorAll('.remove-project').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.parentElement.remove();
+                });
+            });
+        }
+        attachRemoveProject(); 
+
+        // Add new skill entry
+        document.getElementById('add-skill').addEventListener('click', function() {
+            const section = document.getElementById('skills-section');
+            const div = document.createElement('div');
+            div.classList.add('skill-entry');
+            div.innerHTML = `
+                <input type="text" name="skill[]" required>
+                <button type="button" class="remove-skill">Remove</button><br>
+            `;
+            section.appendChild(div);
+            attachRemoveSkill();
+        });
+
+        function attachRemoveSkill() {
+            document.querySelectorAll('.remove-skill').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.parentElement.remove();
+                });
+            });
+        }
+        attachRemoveSkill();
+
+        // Add new tool entry
+        document.getElementById('add-tool').addEventListener('click', function() {
+            const section = document.getElementById('tools-section');
+            const div = document.createElement('div');
+            div.classList.add('tool-entry');
+            div.innerHTML = `
+                <input type="text" name="tool[]" required>
+                <button type="button" class="remove-tool">Remove</button><br>
+            `;
+            section.appendChild(div);
+            attachRemoveTool();
+        });
+
+        function attachRemoveTool() {
+            document.querySelectorAll('.remove-tool').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.parentElement.remove();
+                });
+            });
+        }
+        attachRemoveTool();
+    </script>
+</body>
+</html>

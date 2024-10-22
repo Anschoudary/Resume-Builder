@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/demo.css">
+    <link rel="stylesheet" href="../static/style3.css">
+    <title>Resume Builder</title>
+</head>
+<body>
+    <header class="navbar">
+        <div class="title">
+            <a href="{% url 'home' %}"><h1>Resume Builder</h1></a>
+        </div>
+        <nav class="account">
+            <a href="{% url 'login' %}" aria-label="Sign Up"><h3>Login</h3></a>
+            <a href="{% url 'logout' %}" aria-label="Login"><h3>Logout</h3></a>
+        </nav>
+    </header>
+
+    <main class="content">
+        <!-- Introductory Section -->
+        <section class="intro">
+            <h2>Create a Professional Resume in Minutes!</h2>
+            <p>With our easy-to-use resume builder, you can create a stunning and professional resume with just a few clicks. Choose from a variety of templates, customize your information, and download your resume in no time!</p>
+        </section>
+
+        <!-- Buttons for actions -->
+        <section class="buttons">
+            <a href="#container" class="btn-primary" aria-label="Demo Templates">
+                <button>Build Your Resume Today!</button>
+            </a>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <h3>Why Choose Us?</h3>
+            <ul>
+                <li>✅ Easy to Use: Intuitive interface with simple steps.</li>
+                <li>✅ Customizable Templates: Wide range of templates to choose from.</li>
+                <li>✅ Free Downloads: Download your resume in PDF format for free.</li>
+                <li>✅ Mobile Friendly: Build your resume from your desktop or phone.</li>
+            </ul>
+        </section>
+    </main>
+
+    <div id="container">
+        <h1>Choose Your Resume Template</h1>
+        <div class="template-list">
+            <!-- Template 1 -->
+            <div class="template-card" onclick="showModal('../static/templates/RB1.png', 'RB1')">
+                <div class="image-container">
+                    <img src="../static/templates/RB1.png" alt="Template 1 Preview">
+                </div>
+                <div class="template-info"></div>
+            </div>
+    
+            <!-- Template 2 -->
+            <div class="template-card" onclick="showModal('../static/templates/RB2.png', 'RB2')">
+                <div class="image-container">
+                    <img src="../static/templates/RB2.png" alt="Template 2 Preview">
+                </div>
+            </div>
+    
+            <!-- Template 3 -->
+            <div class="template-card" onclick="showModal('../static/templates/RB3.png', 'RB3')">
+                <div class="image-container">
+                    <img src="../static/templates/RB3.png" alt="Template 3 Preview">
+                </div>
+                <div class="template-info"></div>
+            </div>
+
+             <!-- Template 4 -->
+             <div class="template-card" onclick="showModal('../static/templates/RB1.png')">
+                <div class="image-container">
+                    <img src="../static/templates/RB1.png" alt="Template 1 Preview">
+                </div>
+            </div>
+
+            <!-- Template 5 -->
+            <div class="template-card" onclick="showModal('../static/templates/RB2.png')">
+                <div class="image-container">
+                    <img src="../static/templates/RB2.png" alt="Template 2 Preview">
+                </div>
+            </div>
+
+            <!-- Template 6 -->
+            <div class="template-card" onclick="showModal('../static/templates/RB3.png')">
+                <div class="image-container">
+                    <img src="../static/templates/RB3.png" alt="Template 3 Preview">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Structure -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="edit-button-container">
+            <a id="editButton" href="{% url 'build_resume' %}?template={{ selected_template }}" class="edit-btn">Edit Resume</a>
+        </div>
+    </div>
+    
+    <script>
+        function showModal(imageSrc, templateName) {
+            var modal = document.getElementById("imageModal");
+            var modalImage = document.getElementById("modalImage");
+            var editButton = document.getElementById("editButton");
+    
+            modal.style.display = "block";
+            modalImage.src = imageSrc;
+            editButton.href = "{% url 'build_resume' %}?template=" + templateName; // Pass the template ID as a URL parameter
+        }
+    
+        function closeModal() {
+            var modal = document.getElementById("imageModal");
+            modal.style.display = "none";
+        }
+    
+        window.onclick = function(event) {
+            var modal = document.getElementById("imageModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>    
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Resume Builder | <a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a></p>
+    </footer>
+</body>
+</html>
